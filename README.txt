@@ -1,6 +1,6 @@
 deliciousr
-    by FIX (your name)
-    FIX (url)
+    by Josh Nichols
+    http://technicalpickles.com
 
 == DESCRIPTION:
   
