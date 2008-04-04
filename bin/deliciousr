@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'deliciousr'
+
+# api_call = Deliciousr::V1::Tags::GetTagsCall.new
+user = Deliciousr::User.new('technicalpickles', 'dlu28widdle')
+
+# api_call = Deliciousr::V1::Tags::RenameTagsCall.new
+# api_call.parameters = {:old => 'ujs', :new => 'UJS'}
+
+results = user.tags
+
+results.each_pair do |tag, count|
+  puts "#{tag} occurs #{count} times"
+end
