@@ -2,6 +2,7 @@ require 'rubygems'
 require 'test/unit'
 require 'shoulda'
 require 'mocha'
+require 'assert2'
 
 require File.dirname(__FILE__) + '/../lib/deliciousr'
 

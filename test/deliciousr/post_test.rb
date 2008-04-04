@@ -28,22 +28,22 @@ module Deliciousr
       end
       
       should 'have a href' do
-        assert_equal new_params[:href], @post.href
+        assert {new_params[:href] == @post.href}
       end
       
       should 'have a description' do
-        assert_equal new_params[:description], @post.description
+        assert {new_params[:description] == @post.description}
       end
       
       should 'have an extended description' do
-        assert_equal new_params[:extended], @post.extended
+        assert {new_params[:extended] == @post.extended}
       end
       
       should 'have an hash' do
-        assert_equal new_params[:hash], @post.hash
+        assert {new_params[:hash] == @post.hash}
       end
       should 'have a date' do
-        assert_equal new_params[:date], @post.date
+        assert {new_params[:date] == @post.date}
       end
     end
     
