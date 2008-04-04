@@ -11,33 +11,34 @@ module Deliciousr
         end
         
         should 'have method should be :tags' do
-          assert @api_call.method == :tags
+          assert {@api_call.method == :tags}
         end
         
         should 'have action be :get' do
-          assert @api_call.action == :get
+          assert {@api_call.action == :get}
         end
         
         should 'parse response into an array of tags' do
           root = build_root_for(example_get_tags_response)
           response = @api_call.parse(root)
           
-          assert_equal 6, response.size
+          assert {6 == response.size}
           
           activedesktop = response[0]
-          assert_equal 'activedesktop', activedesktop.name
-          assert_equal 1, activedesktop.count
+          
+          assert {'activedesktop' == activedesktop.name}
+          assert {1 == activedesktop.count}
         end
         
         should 'not require any parameters' do
-          assert_equal 0, @api_call.required_parameters.size
+          assert {0 == @api_call.required_parameters.size}
         end
         
         should 'associate found tags with current user' do
           root = build_root_for(example_get_tags_response)
           tags = @api_call.parse(root)
           tags.each do |tag|
-            assert_same @user, tag.user
+            assert {@user === tag.user}
           end
             
         end
@@ -51,19 +52,19 @@ module Deliciousr
         end
         
         should 'require old and new parameters' do
-          assert @api_call.required_parameters.include?(:old)
-          assert @api_call.required_parameters.include?(:new)
+          assert {@api_call.required_parameters.include?(:old)}
+          assert {@api_call.required_parameters.include?(:new)}
         end
         
         should 'not have any optional parameters' do
-          assert @api_call.optional_parameters.empty?
+          assert {@api_call.optional_parameters.empty?}
         end
         
         should 'parse response as a boolean' do
           root = build_root_for(example_rename_tags_response)
           response = @api_call.parse(root)
           
-          assert response
+          assert {response}
         end
       end
     end

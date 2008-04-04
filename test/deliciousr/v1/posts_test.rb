@@ -11,25 +11,24 @@ module Deliciousr
         end
         
         should 'have method be :posts' do
-          assert_equal :posts, @api_call.method
+          assert {:posts == @api_call.method}
         end
         
         should 'have action be :update' do
-          assert_equal :update, @api_call.action
+          assert {:update == @api_call.action}
         end
         
         should 'parse response as a date' do
           root = build_root_for(example_last_updated_posts_response)
           actual_date = @api_call.parse(root)
-          assert_equal @expected_date, actual_date
+          
+          assert {@expected_date == actual_date}
         end
         
         should 'not have any required parameters' do
-          assert_equal 0, @api_call.required_parameters.size
+          assert {0 == @api_call.required_parameters.size}
         end
       end
-      
-      # class RecentTest < Test::Unit::TestCase
     end
   end
 end

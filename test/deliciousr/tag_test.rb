@@ -10,11 +10,11 @@ module Deliciousr
       end
     
       should 'have a name' do
-        assert_equal 'foo', @tag.name
+        assert {'foo' == @tag.name}
       end
     
       should 'have a count' do
-        assert_equal 3, @tag.count
+        assert {3 == @tag.count}
       end
       
       should 'be able to be renamed' do

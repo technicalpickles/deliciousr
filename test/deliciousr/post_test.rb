@@ -42,6 +42,7 @@ module Deliciousr
       should 'have an hash' do
         assert {new_params[:hash] == @post.hash}
       end
+      
       should 'have a date' do
         assert {new_params[:date] == @post.date}
       end
