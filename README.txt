@@ -21,7 +21,7 @@ An attempt at a reasonable rubyeque wrapper around the del.icio.us API
 
 (The MIT License)
 
-Copyright (c) 2007 FIX
+Copyright (c) 2007 Josh Nichols
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
