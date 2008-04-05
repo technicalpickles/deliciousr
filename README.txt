@@ -11,6 +11,9 @@ An attempt at a reasonable rubyeque wrapper around the del.icio.us API
     @user = Deliciousr::User.new('you', 'topsekrit')
     @user.tags.each do |tag|
       puts "#{tag.name} has been added to #{tag.count} post(s)"
+      unless tag.name.downcase == tag.name
+        tag.rename_all_to! tag.name.downcase
+      end
     end
 
 == Install:

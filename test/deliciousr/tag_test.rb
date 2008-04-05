@@ -19,7 +19,7 @@ module Deliciousr
       
       should 'be able to be renamed' do
         stubbing_http_response_with(example_rename_tags_response) do
-          assert @tag.rename_all!('bar')
+          assert {@tag.rename_all_to!('bar')}
         end
       end
     end

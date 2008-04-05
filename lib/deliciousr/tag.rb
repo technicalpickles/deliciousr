@@ -6,8 +6,8 @@ module Deliciousr
       @count = count
     end
     
-    def rename_all!(to)
-      V1::Tags::RenameTagsCall.new(@user, {:old => @name, :new => to}).call
+    def rename_all_to!(new_name)
+      V1::Tags::RenameTagsCall.new(@user, {:old => @name, :new => new_name}).call
     end
   end
 end
