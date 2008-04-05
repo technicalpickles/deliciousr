@@ -2,27 +2,22 @@ deliciousr
     by Josh Nichols
     http://technicalpickles.com
 
-== DESCRIPTION:
+== Description:
   
-FIX (describe your package)
+An attempt at a reasonable rubyeque wrapper around the del.icio.us API
 
-== FEATURES/PROBLEMS:
+== Usage
   
-* FIX (list of features or problems)
+    @user = Deliciousr::User.new('you', 'topsekrit')
+    @user.tags.each do |tag|
+      puts "#{tag.name} has been added to #{tag.count} post(s)"
+    end
 
-== SYNOPSIS:
+== Install:
 
-  FIX (code sample of usage)
+* gem install deliciousr
 
-== REQUIREMENTS:
-
-* FIX (list of requirements)
-
-== INSTALL:
-
-* FIX (sudo gem install, anything else)
-
-== LICENSE:
+== License:
 
 (The MIT License)
 
