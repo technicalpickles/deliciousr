@@ -12,7 +12,8 @@ module Deliciousr
         
         method_should_be :tags
         action_should_be :get
-        should_require_parameters :none
+        should_have_required_parameters :none
+        should_have_optional_parameters :none
         should_build_request_path '/v1/tags/get'
                 
         should 'parse response into an array of tags' do
@@ -43,12 +44,9 @@ module Deliciousr
         
         method_should_be :tags
         action_should_be :rename
-        should_require_parameters :old, :new
+        should_have_required_parameters :old, :new
+        should_have_optional_parameters :none
         should_build_request_path '/v1/tags/rename'
-                
-        should 'not have any optional parameters' do
-          assert {@api_call.optional_parameters.empty?}
-        end
         
         should 'parse response as a boolean' do
           root = build_root_for(example_rename_tags_response)

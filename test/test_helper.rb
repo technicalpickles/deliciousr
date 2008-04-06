@@ -91,6 +91,10 @@ class Test::Unit::TestCase
   end
   
   def self.should_require_parameters(*parameters)
+    should_have_required_parameters(*parameters)
+  end
+  
+  def self.should_have_required_parameters(*parameters)
     if parameters.first == :none
       should 'not have any required parameters' do
         assert {@api_call.required_parameters.empty?}
@@ -99,6 +103,20 @@ class Test::Unit::TestCase
       should "require #{parameters}" do
         parameters.each do |parameter|
           assert {@api_call.required_parameters.include?(parameter)}
+        end
+      end
+    end
+  end
+
+  def self.should_have_optional_parameters(*parameters)
+    if parameters.first == :none
+      should 'not have any optional parameters' do
+        assert {@api_call.optional_parameters.empty?}
+      end
+    else
+      should "have optional parameters #{parameters.inspect}" do
+        parameters.each do |parameter|
+          assert {@api_call.optional_parameters.include?(parameter)}
         end
       end
     end
