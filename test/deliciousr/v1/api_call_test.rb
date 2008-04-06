@@ -25,6 +25,12 @@ module Deliciousr
         should '#action should default to lowercase version of class name' do
           assert {:apicall == @api_call.action}
         end
+        
+        should_eventually 'raise an exception when invoking #parse(xml)' do
+          assert_raise {
+            @api_call.parse(stub)
+          }
+        end
       end
       
       def self.should_build_query_string(expected, parameters)
@@ -43,13 +49,82 @@ module Deliciousr
       
       context 'ApiCall#action' do
         setup do
-          @user = stub
-          @api_call = ApiCall.new(@user)
+          @api_call = ApiCall.new(stub)
           @api_call.class.action 'foo'
         end
         
         should 'define #action with specified string' do
           assert {:foo == @api_call.action}
+        end
+      end
+      
+      context 'ApiCall#optional' do
+        setup do
+          @api_call = ApiCall.new(stub)
+        end
+        
+        context 'with :foo, :bar' do
+          setup do
+            @optional = [:foo, :bar]
+            @api_call.class.optional *@optional
+          end
+        
+          should 'define #optional_parameters' do
+            assert {@api_call.respond_to?(:optional_parameters)}
+          end
+        
+          should 'define #optional_parmeters to return [:foo, :bar]' do
+            assert {@api_call.optional_parameters == @optional}
+          end
+        end
+        
+        context 'with :none' do
+          setup do
+            @api_call.class.optional :none
+          end
+          
+          should 'define #optional_parameters' do
+            assert {@api_call.respond_to?(:optional_parameters)}
+          end
+        
+          should 'define #optional_parmeters to return []' do
+            assert {@api_call.optional_parameters == []}
+          end
+        end
+      end
+      
+      context 'ApiCall#required' do
+        setup do
+          @api_call = ApiCall.new(stub)
+        end
+        
+        context 'with :foo, :bar' do
+          setup do
+            @required = [:foo, :bar]
+            @api_call.class.required *@required
+          end
+        
+          should 'define #required_parameters' do
+            assert {@api_call.respond_to?(:required_parameters)}
+          end
+        
+          should 'define #required_parameters to return [:foo, :bar]' do
+            assert {@api_call.required_parameters == @required}
+          end
+        end
+        
+        context 'with :none' do
+          setup do
+            @api_call.class.required :none
+          end
+          
+          should 'define #required_parameters' do
+            assert {@api_call.respond_to?(:required_parameters)}
+          end
+        
+          should 'define #required_parameters to return []' do
+            assert {@api_call.required_parameters == []}
+          end
         end
       end
     end

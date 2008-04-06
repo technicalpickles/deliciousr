@@ -102,6 +102,12 @@ module Deliciousr
           action.to_sym
         end
       end
+      
+      def self.method(method)
+        define_method :method do
+          method.to_sym
+        end
+      end
     end
   end
 end

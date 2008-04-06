@@ -14,9 +14,7 @@ module Deliciousr
           assert {@api_call.method == :tags}
         end
         
-        should 'have action be :get' do
-          assert {@api_call.action == :get}
-        end
+        action_should_be :get
         
         should 'parse response into an array of tags' do
           root = build_root_for(example_get_tags_response)
@@ -47,10 +45,10 @@ module Deliciousr
       
       class RenameTagsCallTest < Test::Unit::TestCase
         def setup
-          @user = mock()
-          
-          @api_call = RenameTagsCall.new(@user)
+          @api_call = RenameTagsCall.new(stub)
         end
+        
+        action_should_be :rename
         
         should 'require old and new parameters' do
           assert {@api_call.required_parameters.include?(:old)}
@@ -65,7 +63,7 @@ module Deliciousr
           root = build_root_for(example_rename_tags_response)
           response = @api_call.parse(root)
           
-          assert {response}
+          assert {response == true}
         end
         
         should_build_request_path '/v1/tags/rename'

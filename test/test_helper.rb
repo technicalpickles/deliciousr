@@ -70,9 +70,30 @@ class Test::Unit::TestCase
     EOF
   end
   
+  def self.action_should_be(action)
+    action = action.to_sym
+    should "have action be #{action.inspect}" do
+      assert {action == @api_call.action}
+    end
+  end
+  
   def self.should_build_request_path(path)
     should "build request path of #{path}" do
       assert {path == @api_call.build_request_path}
+    end
+  end
+  
+  def self.should_require_parameters(*parameters)
+    if parameters.first == :none
+      should 'not have any required parameters' do
+        assert {@api_call.required_parameters.empty?}
+      end
+    else
+      should "require #{parameters}" do
+        parameters.each do |parameter|
+          assert {@api_call.required_parameters.include?(parameter)}
+        end
+      end
     end
   end
 
