@@ -29,9 +29,7 @@ module Deliciousr
           assert {0 == @api_call.required_parameters.size}
         end
         
-        should 'request /v1/posts/update' do
-          assert {'/v1/posts/update' == @api_call.build_request_path}
-        end
+        should_build_request_path '/v1/posts/update'
       end
     end
   end

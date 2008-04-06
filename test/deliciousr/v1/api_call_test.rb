@@ -21,7 +21,20 @@ module Deliciousr
             @api_call.call
           end
         end
-        
+      end
+      
+      def self.should_build_query_string(expected, parameters)
+        should "be #{expected} for #{parameters.inspect}" do
+          query = ApiCall.build_query_string(parameters)
+          assert {expected == query}
+        end
+      end
+      
+      context 'ApiCall#build_query_string' do
+        should_build_query_string nil, nil
+        should_build_query_string nil, {}
+        should_build_query_string 'a=1&b=2', {:a => 1, :b => 2}
+        should_build_query_string 'b=2&c=3', {:c => 3, :b => 2} 
       end
     end
   end

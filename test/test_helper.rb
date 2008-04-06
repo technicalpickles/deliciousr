@@ -69,6 +69,12 @@ class Test::Unit::TestCase
       </posts>
     EOF
   end
+  
+  def self.should_build_request_path(path)
+    should "build request path of #{path}" do
+      assert {path == @api_call.build_request_path}
+    end
+  end
 
   def build_root_for(xml)
     REXML::Document.new(xml).root

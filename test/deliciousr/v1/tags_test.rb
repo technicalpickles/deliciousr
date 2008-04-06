@@ -42,9 +42,7 @@ module Deliciousr
           end
         end
         
-        should 'build request path of /v1/tags/get' do
-          assert {'/v1/tags/get' == @api_call.build_request_path}
-        end
+        should_build_request_path '/v1/tags/get'
       end
       
       class RenameTagsCallTest < Test::Unit::TestCase
@@ -70,9 +68,7 @@ module Deliciousr
           assert {response}
         end
         
-        should 'build request path of /v1/tags/get' do
-          assert {'/v1/tags/rename' == @api_call.build_request_path}
-        end
+        should_build_request_path '/v1/tags/rename'
       end
     end
   end

@@ -53,21 +53,32 @@ module Deliciousr
       end
       
       def build_query_string()
+        self.class.build_query_string(parameters)
+      end
+      
+      def self.build_query_string(parameters)
         unless parameters.nil? || parameters.empty?
-          query_strings = []
-          parameters.each_pair do |key, value|
-            query_strings << "#{key}=#{value}"
+          
+          query_strings = parameters.keys.sort {|a,b|
+            a.to_s <=> b.to_s
+          }.inject([]) do |result, element|
+            result << "#{element}=#{parameters[element]}"
           end
+          # parameters.each_pair do |key, value|
+          #   query_strings << "#{key}=#{value}"
+          # end
           query_strings.join('&')
         else
           nil
         end
       end
       
+      # The API 'action'. Defaults to the class name, lowercased. Subclasses should use action method to change this if this default isn't sensible.
       def action
         self.class.to_s.downcase.to_sym
       end
       
+      # Indicates what parameters are required
       def self.required(*parameters)
         if parameters.first == :none
           parameters = []
@@ -78,6 +89,7 @@ module Deliciousr
         end
       end
       
+      # Indicates what parameters are optional
       def self.optional(*parameters)
         if parameters.first == :none
           parameters = []
