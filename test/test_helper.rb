@@ -77,6 +77,13 @@ class Test::Unit::TestCase
     end
   end
   
+  def self.method_should_be(method)
+    method = method.to_sym
+    should "have method be #{method.inspect}" do
+      assert {method == @api_call.method}
+    end
+  end
+  
   def self.should_build_request_path(path)
     should "build request path of #{path}" do
       assert {path == @api_call.build_request_path}
