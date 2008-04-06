@@ -40,7 +40,10 @@ module Deliciousr
           tags.each do |tag|
             assert {@user === tag.user}
           end
-            
+        end
+        
+        should 'build request path of /v1/tags/get' do
+          assert {'/v1/tags/get' == @api_call.build_request_path}
         end
       end
       
@@ -65,6 +68,10 @@ module Deliciousr
           response = @api_call.parse(root)
           
           assert {response}
+        end
+        
+        should 'build request path of /v1/tags/get' do
+          assert {'/v1/tags/rename' == @api_call.build_request_path}
         end
       end
     end

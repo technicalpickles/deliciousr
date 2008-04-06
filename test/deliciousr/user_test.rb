@@ -22,10 +22,10 @@ module Deliciousr
       end
     end
     
-    should "have last updated on #{example_last_updated_posts_date}" do
-      stubbing_http_response_with(example_last_updated_posts_response) do
-        assert{example_last_updated_posts_date == @user.last_updated}
-      end
-    end
+    # should "have last updated on #{example_last_updated_posts_date}" do
+    #   stubbing_http_response_with(example_last_updated_posts_response) do
+    #     assert{example_last_updated_posts_date == @user.last_updated}
+    #   end
+    # end
   end
 end

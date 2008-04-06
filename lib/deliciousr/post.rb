@@ -3,7 +3,7 @@ module Deliciousr
     def self.attrs
       [:href, :description, :extended, :hash, :date, :tags]
     end
-    attr_accessor *self.attrs
+    self.attrs.each {|name| attr_accessor name}
     
     def initialize(params={})
       params.each_pair do |key, value|
