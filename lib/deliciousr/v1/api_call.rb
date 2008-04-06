@@ -64,9 +64,6 @@ module Deliciousr
           }.inject([]) do |result, element|
             result << "#{element}=#{parameters[element]}"
           end
-          # parameters.each_pair do |key, value|
-          #   query_strings << "#{key}=#{value}"
-          # end
           query_strings.join('&')
         else
           nil
@@ -75,7 +72,7 @@ module Deliciousr
       
       # The API 'action'. Defaults to the class name, lowercased. Subclasses should use action method to change this if this default isn't sensible.
       def action
-        self.class.to_s.downcase.to_sym
+        self.class.to_s.split('::').last.downcase.to_sym
       end
       
       # Indicates what parameters are required
@@ -102,7 +99,7 @@ module Deliciousr
       
       def self.action(action)
         define_method :action do
-          action
+          action.to_sym
         end
       end
     end

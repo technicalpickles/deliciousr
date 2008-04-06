@@ -21,6 +21,10 @@ module Deliciousr
             @api_call.call
           end
         end
+        
+        should '#action should default to lowercase version of class name' do
+          assert {:apicall == @api_call.action}
+        end
       end
       
       def self.should_build_query_string(expected, parameters)
@@ -35,6 +39,18 @@ module Deliciousr
         should_build_query_string nil, {}
         should_build_query_string 'a=1&b=2', {:a => 1, :b => 2}
         should_build_query_string 'b=2&c=3', {:c => 3, :b => 2} 
+      end
+      
+      context 'ApiCall#action' do
+        setup do
+          @user = stub
+          @api_call = ApiCall.new(@user)
+          @api_call.class.action 'foo'
+        end
+        
+        should 'define #action with specified string' do
+          assert {:foo == @api_call.action}
+        end
       end
     end
   end
