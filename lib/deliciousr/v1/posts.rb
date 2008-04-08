@@ -1,14 +1,8 @@
 module Deliciousr
   module V1
     module Posts
-      class PostsApiCall < ApiCall
-        def initialize(user, parameters={})
-          super
-        end
-        
-        def method
-          :posts
-        end
+      class PostsApiCall < ApiCall        
+        method :posts
       end
       
       def parse_post(node)
