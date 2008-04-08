@@ -60,6 +60,10 @@ module Deliciousr
             assert {@post.tags.first.name == 'weather'}
             assert {@post.tags.last.name == 'reference'}
           end
+          
+          should_eventually 'have date be 2005-11-29T20:30:47Z' do
+            assert {DateTime.parse('2005-11-29T20:30:47Z') == @post.date}
+          end
         end
       end
     end
