@@ -3,14 +3,18 @@ module Deliciousr
     module Posts
       class PostsApiCall < ApiCall        
         method :posts
-      end
-      
-      def parse_post(node)
-        params = Post.attrs.inject({}) do |params, current|
-          params[current] = node.attributes[attribute.to_s]
-        end
+        
+        def parse_post(node)
+          # params = Post.attrs.inject({}) do |params, current|
+          #   params[current] = node.attributes[current.to_s]
+          # end
+          
+          attrs = node.attributes
 
-        Post.new(params)
+          Post.new(
+          :href => attrs['href'], :description => attrs['description'], :extended => attrs['extended'], :hash => attrs['hash'], :date => attrs['time'], :tags => attrs['tag']
+          )
+        end
       end
       
       class LastUpdated < PostsApiCall
@@ -29,6 +33,14 @@ module Deliciousr
         action    :recent
         
         @@parameter_mappings = {}
+        
+        def parse(root)
+          results = []
+          root.each_element('post') do |element|
+            results << parse_post(element)
+          end
+          results
+        end
       end
       
       class Get < PostsApiCall

@@ -1,13 +1,16 @@
 module Deliciousr
   class Post
-    def self.attrs
-      [:href, :description, :extended, :hash, :date, :tags]
-    end
-    self.attrs.each {|name| attr_accessor name}
+    attr_accessor :href, :description, :extended, :hash, :date, :tags
     
     def initialize(params={})
       params.each_pair do |key, value|
         send "#{key}=", value
+      end
+      
+      if tags_string = params[:tags]
+        @tags = tags_string.split(' ').inject([]) do |result, name|
+          result + [Tag.new(name, nil)]
+        end
       end
     end
     
