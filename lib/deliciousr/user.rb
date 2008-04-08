@@ -14,5 +14,9 @@ module Deliciousr
     def last_updated
       Deliciousr::V1::Posts::LastUpdated.new(self).call
     end
+    
+    def recent
+      Deliciousr::V1::Posts::Recent.new(self).call
+    end
   end
 end

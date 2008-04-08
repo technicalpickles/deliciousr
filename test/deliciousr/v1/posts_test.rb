@@ -62,7 +62,7 @@ module Deliciousr
           end
           
           should_eventually 'have date be 2005-11-29T20:30:47Z' do
-            assert {DateTime.parse('2005-11-29T20:30:47Z') == @post.date}
+            assert {@post.date ==DateTime.parse('2005-11-29T20:30:47Z')}
           end
         end
       end
