@@ -36,33 +36,35 @@ module Deliciousr
         should_have_required_parameters :none
         should_have_optional_parameters :tag, :count
         
-        should 'parse 2 posts' do
-          posts = @api_call.parse(@root)
+        context 'without any optional parameters' do      
+          should 'parse 2 posts' do
+            posts = @api_call.parse(@root)
           
-          assert {posts.size == 2}
-        end
+            assert {posts.size == 2}
+          end
         
-        context 'first parsed post' do
-          setup do
-            @post = @api_call.parse(@root).first
-          end
+          context 'first parsed post' do
+            setup do
+              @post = @api_call.parse(@root).first
+            end
           
-          should 'have href be http://www.weather.com' do
-            assert {@post.href == 'http://www.weather.com/'}
-          end
+            should 'have href be http://www.weather.com' do
+              assert {@post.href == 'http://www.weather.com/'}
+            end
           
-          should 'have description be weather.com' do
-            assert {@post.description == 'weather.com'}
-          end
+            should 'have description be weather.com' do
+              assert {@post.description == 'weather.com'}
+            end
           
-          should 'have weather and reference tags' do
-            assert {@post.tags.size == 2}
-            assert {@post.tags.first.name == 'weather'}
-            assert {@post.tags.last.name == 'reference'}
-          end
+            should 'have weather and reference tags' do
+              assert {@post.tags.size == 2}
+              assert {@post.tags.first.name == 'weather'}
+              assert {@post.tags.last.name == 'reference'}
+            end
           
-          should_eventually 'have date be 2005-11-29T20:30:47Z' do
-            assert {@post.date ==DateTime.parse('2005-11-29T20:30:47Z')}
+            should_eventually 'have date be 2005-11-29T20:30:47Z' do
+              assert {@post.date == DateTime.parse('2005-11-29T20:30:47Z')}
+            end
           end
         end
       end
