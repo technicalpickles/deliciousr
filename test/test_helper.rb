@@ -6,6 +6,10 @@ require 'assert2'
 
 require File.dirname(__FILE__) + '/../lib/deliciousr'
 
+require 'redgreen'
+require 'file_fixture/test_unit'
+FileFixture::FIXTURE_DIR = File.join(File.dirname(__FILE__), "fixtures")
+
 class Test::Unit::TestCase
   
   def stubbing_http_response_with(xml)
@@ -18,21 +22,17 @@ class Test::Unit::TestCase
   def stub_user()
     stub(:username => 'foo', :password => 'bar')
   end
-  
-  def load_xml_from(filename)
-    File.read(File.join(File.dirname(__FILE__), "fixtures", filename))
-  end
 
   def example_get_tags_response()
-    load_xml_from('get_tags.xml')
+    file_fixture('get_tags.xml')
   end
 
   def example_rename_tags_response()
-    load_xml_from('rename_tags.xml')
+    file_fixture('rename_tags.xml')
   end
 
   def example_last_updated_posts_response()
-    load_xml_from('last_updated_posts.xml')
+    file_fixture('last_updated_posts.xml')
   end
 
   def example_last_updated_posts_date
@@ -40,11 +40,11 @@ class Test::Unit::TestCase
   end
 
   def example_get_posts_response()
-    load_xml_from('get_posts.xml')
+    file_fixture('get_posts.xml')
   end
 
   def example_recent_posts_response()
-    load_xml_from('recent_posts.xml')
+    file_fixture('recent_posts.xml')
   end
   
   def self.action_should_be(action)
