@@ -1,19 +1,47 @@
-# -*- ruby -*-
-
-require 'rubygems'
-require 'hoe'
-require './lib/deliciousr.rb'
-require 'spec/rake/spectask'
-
-Hoe.new('deliciousr', Deliciousr::VERSION) do |p|
-  p.rubyforge_name = 'deliciousr'
-  p.author = 'Josh Nichols'
-  p.email = 'josh@technicalpickles.com'
-  # p.summary = 'FIX'
-  # p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
-  # p.url = p.paragraphs_of('README.txt', 0).first.split(/\n/)[1..-1]
-  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
-  p.test_globs = 'test/**/*_test.rb'
+require 'rake'
+require 'rake/testtask'
+begin
+  require 'hanna/rdoctask'
+rescue LoadError
+  require 'rake/rdoctask'
 end
 
-# vim: syntax=Ruby
+require 'rcov/rcovtask'
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "deliciousr"
+    s.summary = "Ruby library for the del.icio.us API"
+    s.email = "josh@technicalpickles.com"
+    s.homepage = "http://github.com/technicalpickles/deliciousr"
+    s.authors = ["Josh Nichols"]
+    s.files =  FileList["[A-Z]*", "{bin,generators,lib,test}/**/*"]
+    s.add_dependency 'happymapper'
+  end
+rescue LoadError
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
+
+
+Rake::TestTask.new do |t|
+  t.libs << 'lib'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
+Rake::RDocTask.new do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'deliciousr'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+Rcov::RcovTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/*_test.rb']
+  t.verbose = true
+end
+
+task :default => :rcov
