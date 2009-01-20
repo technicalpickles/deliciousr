@@ -1,14 +1,14 @@
-require 'rubygems'
 require 'test/unit'
-require 'shoulda'
-require 'mocha'
-require 'assert2'
+require 'rubygems'
+require 'context'
+require 'matchy'
+require 'pending'
+require 'fake_web'
 
-require File.dirname(__FILE__) + '/../lib/deliciousr'
+FakeWeb.allow_net_connect = false
 
-require 'redgreen'
-require 'file_fixture/test_unit'
-FileFixture::FIXTURE_DIR = File.join(File.dirname(__FILE__), "fixtures")
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib') )
+require 'deliciousr'
 
 class Test::Unit::TestCase
   
@@ -21,6 +21,10 @@ class Test::Unit::TestCase
 
   def stub_user()
     stub(:username => 'foo', :password => 'bar')
+  end
+
+  def fixture_path(fixture)
+    File.join(File.dirname(__FILE__), 'fixtures', fixture)
   end
 
   def example_get_tags_response()
@@ -45,61 +49,5 @@ class Test::Unit::TestCase
 
   def example_recent_posts_response()
     file_fixture('recent_posts.xml')
-  end
-  
-  def self.action_should_be(action)
-    action = action.to_sym
-    should "have action be #{action.inspect}" do
-      assert {action == @api_call.action}
-    end
-  end
-  
-  def self.method_should_be(method)
-    method = method.to_sym
-    should "have method be #{method.inspect}" do
-      assert {method == @api_call.method}
-    end
-  end
-  
-  def self.should_build_request_path(path)
-    should "build request path of #{path}" do
-      assert {path == @api_call.build_request_path}
-    end
-  end
-  
-  def self.should_require_parameters(*parameters)
-    should_have_required_parameters(*parameters)
-  end
-  
-  def self.should_have_required_parameters(*parameters)
-    if parameters.first == :none
-      should 'not have any required parameters' do
-        assert {@api_call.required_parameters.empty?}
-      end
-    else
-      should "require #{parameters}" do
-        parameters.each do |parameter|
-          assert {@api_call.required_parameters.include?(parameter)}
-        end
-      end
-    end
-  end
-
-  def self.should_have_optional_parameters(*parameters)
-    if parameters.first == :none
-      should 'not have any optional parameters' do
-        assert {@api_call.optional_parameters.empty?}
-      end
-    else
-      should "have optional parameters #{parameters.inspect}" do
-        parameters.each do |parameter|
-          assert {@api_call.optional_parameters.include?(parameter)}
-        end
-      end
-    end
-  end
-
-  def build_root_for(xml)
-    REXML::Document.new(xml).root
   end
 end
